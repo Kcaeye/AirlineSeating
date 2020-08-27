@@ -2,7 +2,7 @@ public class Seating {
 
     public static void main(String[] args) {
 
-        final int NUMBER_SEATS = 28;
+        final int NUMBER_SEATS = 32;
 
         // let's say that we have the pax array populated.
         String[] pax = new String[NUMBER_SEATS];
