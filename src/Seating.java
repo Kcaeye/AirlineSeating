@@ -1,3 +1,5 @@
+import javax.security.sasl.RealmCallback;
+
 public class Seating {
 
     public static void main(String[] args) {
