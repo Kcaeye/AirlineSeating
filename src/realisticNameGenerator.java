@@ -17,7 +17,7 @@
 
 import java.util.Random;
 
-public class realisticNameGenerator {
+public class RealisticNameGenerator {
 
     private static final String[] lastNames = {
             "Johnson",
@@ -146,7 +146,7 @@ public class realisticNameGenerator {
     /* Method main() below is for local testing only */
     public static void main(String[] args) {
         final int N = 20;
-        realisticNameGenerator realNames = new realisticNameGenerator();
+        RealisticNameGenerator realNames = new RealisticNameGenerator();
         String[] realName = new String[2];
         for (int i = 0;  i<N; i++) {
             realName = realNames.realisticName();
