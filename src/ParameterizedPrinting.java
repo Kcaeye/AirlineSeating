@@ -20,7 +20,7 @@ public class ParameterizedPrinting {
             name = rng.realisticName();
 
             //"Glue" the names together into the pax record using * as delimiter
-            pax[i] = name[0] + "*" +name[1];
+            pax[i] = name[0] + "*" + name[1];
         }
 
         // Calculate longest pax record.
@@ -55,8 +55,8 @@ public class ParameterizedPrinting {
 
             System.out.println("| " + pax[i] + " ".repeat(numberOfSpaces) + " |");
         }
+
+        // The bottom line!
         System.out.println("+" + "-".repeat(numberOfDashes) + "+");
-
-
     }
 }

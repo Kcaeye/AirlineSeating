@@ -93,7 +93,7 @@ public class RealisticNameGenerator {
     /**
      * Method realisticName is the principal method of this class. Users
      * may access this class' main service only through this method. It
-     * returns a String[2] array, where the first element is a realistic
+     * returns a String[2] array, where the first element is a <b>realistic</b>
      * first  name and the second element is a realistic last name. The
      * gender for the first name is determined by a coin toss.
      * @return realisticName Contains first and last name
