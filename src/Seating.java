@@ -78,7 +78,7 @@ public class Seating {
             longest = ( components[1].length() > longest ) ? components[1].length() : longest;
         }
         return longest;
-    }
+    } // method findLongestName
 
     /**
      * Builds the top border for the seating chart. The size of the the seat is
@@ -99,7 +99,7 @@ public class Seating {
                 "+" +
                 "-".repeat(longestName+3) +
                 "+";
-    }
+    } // method buildTopFrame
 
     /**
      * Converts an integer number to a row/seat designation, e.g.,
@@ -110,63 +110,102 @@ public class Seating {
      * @return String with seat assignment.
      */
     public static String sequenceToSeat(int sequence) {
-        int row = 1 + (sequence/4);
-        char col = (char) (65 + (sequence+1)%4);
-        return String.valueOf(row) + String.valueOf(col);
-    }
+        int row = 1 + (sequence/4); // 1+ so that 0/4, 1/4, 2/4, and 3/4 ---> yield row 1
+        char col = (char) (65 + (sequence+1)%4); // ascii 65 = 'A', 65+1= 'B', etc
+        return String.valueOf(row) + String.valueOf(col); // 'cause string x = row+col no-no.
+                                                          // but there's a way 'round it.
+                                                          // exam question?
+    } // method sequenceToSeat
 
+    /**
+     * Builds the first line of the seating chart. The line contains the
+     * seat numbers across a single row, e.g., 3A, 3B, 3C, 3D. The method
+     * takes into consideration the length of the longest name in the
+     * passenger list, to produce the necessary padding after the seat
+     * assignment. Also, based on the sequence value, the method determines
+     * if a right "armrest", i.e., a vertical delimited needs to be placed.
+     * And finally, also based on sequence, when to place the necessary
+     * spacing for the aisle.
+     * @param seat Seat assignment
+     * @param longest length of longest name in passenger list
+     * @param sequence sequence of current passenger
+     * @param aisleWidth width of aisle
+     * @return A string to be used in concatenating the first line of the output.
+     */
     public static String buildFirstLine(String seat, int longest, int sequence, int aisleWidth) {
         String output = "| " + seat + " ".repeat(longest+2-seat.length());
+        // Is this the rightmost seat of the group? If so, add a "|".
         if ( (sequence+1)%2 == 0) { output = output + "|"; }
+        // Is this the aisle seat of the left group? If so, add the aisle.
         if ( sequence%2 == 1) { output = output + " ".repeat(aisleWidth); }
         return  output;
-    }
+    } // method buildFirstLine
 
     public static String buildSecondLine(String name, int longest, int sequence, int aisleWidth) {
         String output = "| " + name + " ".repeat(longest+2-name.length());
         if ( (sequence+1)%2 == 0) { output = output + "|"; }
         if ( sequence%2 == 1) { output = output + " ".repeat(aisleWidth); }
         return  output;
-    }
+    } // method buildSecondLine
 
     public static String buildThirdLine(String name, int longest, int sequence, int aisleWidth) {
         String output = "| " + name + " ".repeat(longest+2-name.length());
         if ( (sequence+1)%2 == 0) { output = output + "|"; }
         if ( sequence%2 == 1) { output = output + " ".repeat(aisleWidth); }
         return  output;
-    }
+    } // method buildThirdLine
 
-
-
+    /*
+    MAIN
+     */
     public static void main(String[] args) {
 
         Seating demo = new Seating();
+        // Number of passengers; needs to be multiple of 4 for now.
         int N = 28;
+        // Width of aisle; Robert Bacon's proportional width to longest name is good idea
+        // for future revision.
         int aisleWidth = 5;
-        String pax[] = demo.passengerManifest(N);
-        String topFrame, firstLine="", secondLine="", thirdLine="", seat="";
-        int longest = demo.findLongestName(pax);
-        topFrame = demo.buildTopFrame(longest, aisleWidth);
-        for ( int i = 0; i < N; i++ ) {
-            String compoments[] = pax[i].split("\\*");
-            seat = sequenceToSeat(i);
-            firstLine = firstLine + buildFirstLine(seat, longest, i, aisleWidth);
-            secondLine = secondLine + buildSecondLine(compoments[0], longest, i, aisleWidth);
-            thirdLine = thirdLine + buildThirdLine(compoments[1], longest, i, aisleWidth);
 
+        // Obtain passenger list.
+        String pax[] = demo.passengerManifest(N);
+
+        // Initialize strings we'll be using to deliver output.
+        String topFrame, firstLine="", secondLine="", thirdLine="", seat="";
+
+        // Find longest name in passenger list
+        int longest = demo.findLongestName(pax);
+        // aisleWidth in proportion to longest can be assigned here -- future rev.
+
+        // Build top frame
+        topFrame = demo.buildTopFrame(longest, aisleWidth);
+
+        // Go through every passenger record
+        for ( int i = 0; i < N; i++ ) {
+
+            // Split record for first and last name assuming * delimiter
+            String compoments[] = pax[i].split("\\*");
+
+            // Calcuate seat assignment based on sequence (i)
+            seat = sequenceToSeat(i);
+
+            // Build the three strings for output
+            firstLine  = firstLine  + buildFirstLine(seat, longest, i, aisleWidth);
+            secondLine = secondLine + buildSecondLine(compoments[0], longest, i, aisleWidth);
+            thirdLine  = thirdLine  + buildThirdLine(compoments[1], longest, i, aisleWidth);
+
+            // Every 4 psassenger records, print and reset strings
             if ( (i+1)%4 == 0 ) {
                 System.out.println(topFrame);
                 System.out.println(firstLine);
                 System.out.println(secondLine);
                 System.out.println(thirdLine);
-                firstLine = "";
+                firstLine  = "";
                 secondLine = "";
-                thirdLine = "";
+                thirdLine  = "";
             }
         }
         System.out.println(topFrame);
-
-
 
         /* OLD CODE
         -------------------------------------------------------------------------
@@ -181,4 +220,4 @@ public class Seating {
         -------------------------------------------------------------------------
          */
     } // method main
-}
+} // class Seating
