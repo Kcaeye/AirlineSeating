@@ -59,21 +59,34 @@ public class Seating {
     /**
      * Method findLongestName returns the length of the longest component
      * stored in it. This method assumes that the contents of the array
-     * passed as parameter, holds delimited information using an asterix
+     * passed as parameter, holds delimited information using an asterisk
      * as the delimiter. This is too much to assume, but it works for now.
      * @param inThisArray
      * @return length of longest asterisk delimited string in the array.
      */
     public int findLongestName(String[] inThisArray) {
         int longest = 0;
+        /*
+        Go over every element of the input array inThisArray[], split
+        one element at a time at the components delimited by "*",
+        and look for the longest components, using the tertiary operator.
+         */
         for ( int i = 0; i < inThisArray.length; i++ ) {
             String components[] = inThisArray[i].split("\\*");
-            if ( components[0].length() > longest ) { longest = components[0].length(); }
-            if ( components[1].length() > longest ) { longest = components[1].length(); }
+            // Array components[] has two elements
+            longest = ( components[0].length() > longest ) ? components[0].length() : longest;
+            longest = ( components[1].length() > longest ) ? components[1].length() : longest;
         }
         return longest;
     }
 
+    /**
+     * Builds the top border for the seating chart. The size of the the seat is
+     * adjusted to accommodate the longest name in the passenger list.
+     * @param longestName Length of longest name in the passenger list
+     * @param aisleWidth Length of aisle between seats
+     * @return The decorate border for the seating chart
+     */
     public String buildTopFrame(int longestName, int aisleWidth) {
         return "+" +
                 "-".repeat(longestName+3) +
@@ -88,11 +101,18 @@ public class Seating {
                 "+";
     }
 
+    /**
+     * Converts an integer number to a row/seat designation, e.g.,
+     *   0 ---> 1A
+     *   1 ---> 1B
+     * assuming a single aisle, 2-2 cabin configuration in an airplane.
+     * @param sequence Integer to be converted to seat assignment.
+     * @return String with seat assignment.
+     */
     public static String sequenceToSeat(int sequence) {
         int row = 1 + (sequence/4);
         char col = (char) (65 + (sequence+1)%4);
         return String.valueOf(row) + String.valueOf(col);
-
     }
 
     public static String buildFirstLine(String seat, int longest, int sequence, int aisleWidth) {
