@@ -11,7 +11,9 @@
  * name, with a 50-50 probability for a male or female person.
  *
  * To use this class, instantiate it first, then access its
- * .realisticName() method.
+ * .realisticName() method. Suggested instantiation:
+ *
+ *    RealisticNameGenerator rng = new RealisticNameGenerator();
  *
  */
 
@@ -100,8 +102,8 @@ public class RealisticNameGenerator {
          * Sizes of the name arrays. These are necessary and parameters
          * for Random.nextInt().
          */
-        int lastNamesCount = lastNames.length;
-        int maleFirstNamesCount = firstNamesMale.length;
+        int lastNamesCount       = lastNames.length;
+        int maleFirstNamesCount  = firstNamesMale.length;
         int femaleFirstNamesCount = firstNameFemale.length;
 
         /**
