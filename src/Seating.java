@@ -188,12 +188,12 @@ public class Seating {
             String compoments[] = pax[i].split("\\*");
 
             // Calcuate seat assignment based on sequence (i)
-            seat = sequenceToSeat(i);
+            seat = demo.sequenceToSeat(i);
 
             // Build the three strings for output
-            firstLine  = firstLine  + buildFirstLine(seat, longest, i, aisleWidth);
-            secondLine = secondLine + buildSecondLine(compoments[0], longest, i, aisleWidth);
-            thirdLine  = thirdLine  + buildThirdLine(compoments[1], longest, i, aisleWidth);
+            firstLine  = firstLine  + demo.buildFirstLine(seat, longest, i, aisleWidth);
+            secondLine = secondLine + demo.buildSecondLine(compoments[0], longest, i, aisleWidth);
+            thirdLine  = thirdLine  + demo.buildThirdLine(compoments[1], longest, i, aisleWidth);
 
             // Every 4 passenger records, print and reset strings
             if ( (i+1)%4 == 0 ) {
