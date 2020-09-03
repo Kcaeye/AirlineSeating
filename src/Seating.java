@@ -109,7 +109,7 @@ public class Seating {
      * @param sequence Integer to be converted to seat assignment.
      * @return String with seat assignment.
      */
-    public static String sequenceToSeat(int sequence) {
+    public String sequenceToSeat(int sequence) {
         int row = 1 + (sequence/4); // 1+ so that 0/4, 1/4, 2/4, and 3/4 ---> yield row 1
         char col = (char) (65 + (sequence+1)%4); // ascii 65 = 'A', 65+1= 'B', etc
         return String.valueOf(row) + String.valueOf(col); // 'cause string x = row+col no-no.
@@ -132,7 +132,7 @@ public class Seating {
      * @param aisleWidth width of aisle
      * @return A string to be used in concatenating the first line of the output.
      */
-    public static String buildFirstLine(String seat, int longest, int sequence, int aisleWidth) {
+    public String buildFirstLine(String seat, int longest, int sequence, int aisleWidth) {
         String output = "| " + seat + " ".repeat(longest+2-seat.length());
         // Is this the rightmost seat of the group? If so, add a "|".
         if ( (sequence+1)%2 == 0) { output = output + "|"; }
@@ -141,14 +141,14 @@ public class Seating {
         return  output;
     } // method buildFirstLine
 
-    public static String buildSecondLine(String name, int longest, int sequence, int aisleWidth) {
+    public String buildSecondLine(String name, int longest, int sequence, int aisleWidth) {
         String output = "| " + name + " ".repeat(longest+2-name.length());
         if ( (sequence+1)%2 == 0) { output = output + "|"; }
         if ( sequence%2 == 1) { output = output + " ".repeat(aisleWidth); }
         return  output;
     } // method buildSecondLine
 
-    public static String buildThirdLine(String name, int longest, int sequence, int aisleWidth) {
+    public String buildThirdLine(String name, int longest, int sequence, int aisleWidth) {
         String output = "| " + name + " ".repeat(longest+2-name.length());
         if ( (sequence+1)%2 == 0) { output = output + "|"; }
         if ( sequence%2 == 1) { output = output + " ".repeat(aisleWidth); }
@@ -161,6 +161,7 @@ public class Seating {
     public static void main(String[] args) {
 
         Seating demo = new Seating();
+
         // Number of passengers; needs to be multiple of 4 for now.
         int N = 28;
         // Width of aisle; Robert Bacon's proportional width to longest name is good idea
