@@ -37,7 +37,7 @@ public class Seating {
         Question: we can avoid using this local array if in the
         loop below, we use instead:
             String fname = names.realisticName()[0];
-            String lname = names. realisticName()[1];
+            String lname = names.realisticName()[1];
         Good idea? Bad idea?
          */
         String[] name = new String[2];
@@ -194,12 +194,14 @@ public class Seating {
             secondLine = secondLine + buildSecondLine(compoments[0], longest, i, aisleWidth);
             thirdLine  = thirdLine  + buildThirdLine(compoments[1], longest, i, aisleWidth);
 
-            // Every 4 psassenger records, print and reset strings
+            // Every 4 passenger records, print and reset strings
             if ( (i+1)%4 == 0 ) {
+                // print ...
                 System.out.println(topFrame);
                 System.out.println(firstLine);
                 System.out.println(secondLine);
                 System.out.println(thirdLine);
+                // reset ...
                 firstLine  = "";
                 secondLine = "";
                 thirdLine  = "";
